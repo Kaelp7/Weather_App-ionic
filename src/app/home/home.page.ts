@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WeatherService } from '../services/weather.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,21 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  private res;
+
+  constructor(
+              private weatherAPI: WeatherService
+  ) {}
+
+  ngOninit() {
+    this.getWeatherData();
+  }
+
+  getWeatherData() {
+    this.weatherAPI.getWeatherData().subscribe((response) => {
+      this.res = response;
+      console.log(this.res);
+    });
+  }
 
 }
